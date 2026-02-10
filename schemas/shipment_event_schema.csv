@@ -1,0 +1,6 @@
+Entity,Field,Type,Notes
+ShipmentEvent,id,string/uuid/int,
+ShipmentEvent,shipment_id,FK → Shipment,
+ShipmentEvent,event_type,string,"status_change, document_updated, payment_update, note_added"
+ShipmentEvent,description,string,e.g. Status changed from ORDER_RECEIVED to DOCUMENTS_IN_PROGRESS
+ShipmentEvent,created_at,datetime,

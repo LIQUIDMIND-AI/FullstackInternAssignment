@@ -1,0 +1,8 @@
+Entity,Field,Type,Notes
+Document,id,string/uuid/int,
+Document,shipment_id,FK → Shipment,
+Document,document_type,enum,"tax_invoice, packing_list, bill_of_lading, certificate_of_origin, shipping_bill, insurance_certificate, bank_certificate_firc"
+Document,status,enum,"not_started, draft, ready, submitted, verified, rejected"
+Document,notes,string,nullable
+Document,created_at,datetime,
+Document,updated_at,datetime,

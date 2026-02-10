@@ -1,0 +1,33 @@
+Entity,Field,Type,Notes
+Shipment,id,string/uuid/int,Primary key
+Shipment,shipment_number,string,e.g. SHP-2025-0342
+Shipment,buyer_id,FK → Buyer,
+Shipment,product_id,FK → Product,
+Shipment,status,enum,See status machine
+Shipment,date_created,date,When the order was received
+Shipment,quantity,int,
+Shipment,unit_price_usd,float,Agreed price for this shipment
+Shipment,total_fob_usd,float,Should = quantity × unit_price
+Shipment,freight_cost_usd,float,
+Shipment,insurance_usd,float,
+Shipment,incoterm,string,"FOB, CIF, EXW, CFR"
+Shipment,port_of_loading,string,"INMUN1 (Mundra), INNSA1 (JNPT), INMAA1 (Chennai), INBLR4 (Bangalore ICD)"
+Shipment,port_of_discharge,string,Realistic for buyer country
+Shipment,shipping_line,string,"Maersk, MSC, CMA CGM, Hapag-Lloyd, ONE"
+Shipment,container_type,string,"20ft, 40ft, 40ft HC"
+Shipment,container_number,string,"nullable, e.g. MSCU1234567"
+Shipment,vessel_name,string,nullable
+Shipment,freight_forwarder,string,
+Shipment,cha_name,string,
+Shipment,payment_terms,string,"Advance, LC 30 days, LC 60 days, LC 90 days, Open Account 45 days"
+Shipment,payment_status,enum,"pending, partial, received, overdue"
+Shipment,days_to_payment,int,nullable
+Shipment,customs_status,enum,"not_filed, filed, approved, rejected, under_query"
+Shipment,drawback_status,enum,"not_eligible, eligible, claimed, received"
+Shipment,drawback_amount_usd,float,
+Shipment,estimated_departure,date,
+Shipment,actual_departure,date,nullable
+Shipment,estimated_arrival,date,nullable
+Shipment,actual_arrival,date,nullable
+Shipment,created_at,datetime,
+Shipment,updated_at,datetime,

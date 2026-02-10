@@ -1,0 +1,9 @@
+Entity,Field,Type,Notes
+Product,id,string/uuid/int,Primary key
+Product,description,string,e.g. Cotton T-shirts 100% knitted
+Product,hs_code,string,8-digit e.g. 61091000 — use real codes
+Product,category,string,"Textiles, Auto Parts, Chemicals, Machinery, Food Products, Handicrafts"
+Product,unit_price_usd,float,Default price
+Product,drawback_rate_pct,float,Government incentive %
+Product,weight_per_unit_kg,float,
+Product,created_at,datetime,

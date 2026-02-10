@@ -1,0 +1,9 @@
+Entity,Field,Type,Notes
+Buyer,id,string/uuid/int,Primary key
+Buyer,name,string,e.g. Global Mart Inc
+Buyer,country,string,e.g. USA
+Buyer,default_port_of_discharge,string,e.g. USLAX
+Buyer,credit_rating,enum,"A, B, C"
+Buyer,default_payment_terms,string,e.g. LC 60 days
+Buyer,contact_email,string,
+Buyer,created_at,datetime,

@@ -1,0 +1,6 @@
+Problem,How Many,Why It Matters
+Overdue payments,5-6 shipments,days_to_payment way past payment_terms with payment_status = overdue
+Stuck in customs,3-4 shipments,status = CUSTOMS_HELD for 5+ days with customs_status = rejected or under_query
+Missing documents,6-8 shipments,Status is advanced (CUSTOMS_FILED or beyond) but some documents still not_started or draft
+Departure soon not ready,3-4 shipments,estimated_departure within 3 days but status is still DOCUMENTS_IN_PROGRESS or earlier
+Arrival overdue,2-3 shipments,Past estimated_arrival + 7 days but still showing IN_TRANSIT
