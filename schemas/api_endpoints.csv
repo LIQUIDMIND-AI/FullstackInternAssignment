@@ -1,12 +1,12 @@
-Category,Method,Endpoint,Description
-Shipments,GET,/api/shipments,List shipments with filters + pagination
-Shipments,GET,/api/shipments/{id},Full shipment detail (include documents + events)
-Shipments,POST,/api/shipments,Create new shipment
-Shipments,PATCH,/api/shipments/{id},Update shipment fields
-Shipments,POST,/api/shipments/{id}/status,Change shipment status (state machine enforced)
-Documents,GET,/api/shipments/{id}/documents,List documents for a shipment
-Documents,PATCH,/api/documents/{id},Update document status
-Dashboard,GET,/api/dashboard/summary,Aggregated numbers for dashboard cards
-Dashboard,GET,/api/dashboard/alerts,List of action items / problems
-Analytics,GET,/api/analytics/shipments-by-status,Count of shipments per status (for chart)
-Analytics,GET,/api/analytics/monthly-trend,Shipment count + total value per month (for chart)
+Category,Method,Endpoint,Description,Required
+Shipments,GET,/api/shipments,List shipments with filters + pagination,Yes
+Shipments,GET,/api/shipments/{id},Full shipment detail (include documents + events),Yes
+Shipments,POST,/api/shipments,Create new shipment,Yes
+Shipments,PATCH,/api/shipments/{id},Update shipment fields,Yes
+Shipments,POST,/api/shipments/{id}/status,Change shipment status (state machine enforced),Yes
+Documents,GET,/api/shipments/{id}/documents,List documents for a shipment,Yes
+Documents,PATCH,/api/documents/{id},Update document status,Yes
+Dashboard,GET,/api/dashboard/summary,Aggregated numbers for dashboard cards,Yes
+Dashboard,GET,/api/dashboard/alerts,List of action items / problems,Yes
+Analytics,GET,/api/analytics/shipments-by-status,Count of shipments per status (for chart),Yes
+Analytics,GET,/api/analytics/monthly-trend,Shipment count + total value per month (for chart),Optional (Bonus)

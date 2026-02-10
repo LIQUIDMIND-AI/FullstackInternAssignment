@@ -24,12 +24,12 @@ An Indian exporter manages **200+ shipments/month** across 15 countries. Today, 
 
 | Day | Focus | Hours |
 |-----|-------|-------|
-| Day 1 | Understand the domain, data modeling, database setup, seed data | ~5 hrs |
-| Day 2 | Backend APIs + business logic (status engine, alerts, filters) | ~5 hrs |
-| Day 3 | Frontend — dashboard, shipment list, shipment detail | ~5 hrs |
-| Day 4 | Create shipment form, connect everything, deploy, DESIGN_DECISIONS.md | ~5 hrs |
+| Day 1 | Understand the domain, data modeling, database setup, seed data | ~4-5 hrs |
+| Day 2 | Backend APIs + status machine + alerts | ~4-5 hrs |
+| Day 3 | Frontend — dashboard, shipment list, shipment detail | ~4-5 hrs |
+| Day 4 | Create shipment form, polish, deploy, DESIGN_DECISIONS.md | ~4-5 hrs |
 
-This is a suggestion, not a requirement. Work however you want.
+This is a suggestion, not a requirement. Work however you want. **Use AI tools to move faster!**
 
 ---
 
@@ -37,15 +37,15 @@ This is a suggestion, not a requirement. Work however you want.
 
 Design your database around these entities. Use **any database** — SQLite is perfectly fine. Postgres, MySQL, MongoDB — whatever you're comfortable with. **Justify your choice in DESIGN_DECISIONS.md.**
 
-### Entity 1: `Buyer` (8-10 rows in seed data)
+### Entity 1: `Buyer` (5-6 rows in seed data)
 
 > **Schema definition:** [`schemas/buyer_schema.csv`](schemas/buyer_schema.csv)
 
-### Entity 2: `Product` (12-15 rows in seed data)
+### Entity 2: `Product` (8-10 rows in seed data)
 
 > **Schema definition:** [`schemas/product_schema.csv`](schemas/product_schema.csv)
 
-### Entity 3: `Shipment` (Core entity — 80-100 rows in seed data)
+### Entity 3: `Shipment` (Core entity — 40-50 rows in seed data)
 
 > **Schema definition:** [`schemas/shipment_schema.csv`](schemas/shipment_schema.csv)
 
@@ -108,11 +108,9 @@ Write a seed script that fills the database with realistic data. The data should
 
 | Problem | How Many | Why It Matters |
 |---------|----------|---------------|
-| Overdue payments | 5-6 shipments | `days_to_payment` way past `payment_terms`, `payment_status = overdue` |
-| Stuck in customs | 3-4 shipments | `status = CUSTOMS_HELD` for 5+ days, `customs_status = rejected` or `under_query` |
-| Missing documents | 6-8 shipments | Status is advanced (CUSTOMS_FILED or beyond) but some documents still `not_started` or `draft` |
-| Departure soon, not ready | 3-4 shipments | `estimated_departure` within 3 days but status is still DOCUMENTS_IN_PROGRESS or earlier |
-| Arrival overdue | 2-3 shipments | Past `estimated_arrival` + 7 days but still showing IN_TRANSIT |
+| Overdue payments | 3-4 shipments | `days_to_payment` way past `payment_terms`, `payment_status = overdue` |
+| Stuck in customs | 2-3 shipments | `status = CUSTOMS_HELD` for 5+ days, `customs_status = rejected` or `under_query` |
+| Missing documents | 3-4 shipments | Status is advanced (CUSTOMS_FILED or beyond) but some documents still `not_started` or `draft` |
 
 ---
 
@@ -144,14 +142,11 @@ Write a seed script that fills the database with realistic data. The data should
 - `GET /api/analytics/monthly-trend` - Shipment count + total value per month (for chart)
 
 **Filters on `GET /api/shipments`** (implement at least these):
-- `status` (single or multi)
+- `status` (single value is fine)
 - `buyer_id`
 - `payment_status`
-- `customs_status`
-- `date_from`, `date_to`
-- `search` (text search across shipment_number, buyer name, product description)
+- `search` (text search across shipment_number, buyer name)
 - `page`, `page_size`
-- `sort_by`, `sort_order`
 
 ### What We Expect From the Backend:
 
@@ -160,8 +155,6 @@ Write a seed script that fills the database with realistic data. The data should
 3. **Alert logic** — `/api/dashboard/alerts` should compute and return:
    - Payments overdue beyond terms + 30 days
    - Shipments in CUSTOMS_HELD for 5+ days
-   - Shipments with departure in ≤ 3 days but missing documents
-   - Shipments past estimated arrival + 7 days still IN_TRANSIT
 4. **Input validation** — proper Pydantic/schema validation, meaningful error messages
 5. **Proper HTTP status codes** — 201 for creation, 400 for bad input, 404 for not found
 
@@ -187,9 +180,9 @@ A list of problems, color-coded by severity. Each one clickable → goes to that
 - 🟡 Warning: Missing documents with departure approaching, customs held
 - 🟢 Info: Arrivals pending confirmation
 
-**At least 2 charts:**
+**At least 1 chart:**
 - Shipments by status (bar chart or donut)
-- Monthly trend — shipment count or value over last 3 months (line or bar chart)
+- **Optional bonus:** Monthly trend chart
 
 Use any charting library: Recharts, Chart.js, Nivo, Victory — whatever you prefer.
 
@@ -197,11 +190,9 @@ Use any charting library: Recharts, Chart.js, Nivo, Victory — whatever you pre
 
 A filterable, sortable data table.
 
-- Filter dropdowns/inputs for: status, buyer, payment status, customs status, date range, search
-- Sortable columns
+- Filter dropdowns/inputs for: status, buyer, payment status, search
 - Pagination
 - Status shown as **colored badges**
-- Payment status with color indicator (🟢 received, 🟡 partial/pending, 🔴 overdue)
 - Click any row → navigate to shipment detail page
 
 ### Page 3: Shipment Detail
@@ -259,9 +250,7 @@ A form to create a new shipment:
 
 1. **Loading states** — show spinners or skeletons while data loads. No blank screens.
 2. **Error handling** — if an API fails, show a message. Not a white screen or console error.
-3. **Empty states** — if filters return 0 results, show "No shipments found" with a suggestion to clear filters.
-4. **Filter persistence** — if user filters the shipment list, clicks into a detail page, and presses browser back, the filters should still be there. (Use URL params, state management, or any approach — just make it work.)
-5. **Clean, professional UI** — it doesn't need to be designer-level beautiful. But it should look like a real product, not a homework project. Consistent spacing, proper alignment, readable typography.
+3. **Clean, professional UI** — it doesn't need to be designer-level beautiful. But it should look like a real product. Consistent spacing, proper alignment, readable typography.
 
 **Tip:** For rapid frontend development, consider using AI-powered tools like [Lovable](https://lovable.dev), [Bolt](https://bolt.new), or [v0](https://v0.dev) to accelerate your UI development.
 
@@ -299,7 +288,6 @@ tradeboard/
 │   ├── routes/                    # API route files
 │   ├── services/                  # Business logic (status machine, alerts)
 │   ├── seed.py                    # Seed data script
-│   ├── tests/                     # At least 5 tests
 │   └── requirements.txt
 ├── frontend/
 │   ├── src/
@@ -319,19 +307,15 @@ This structure is a suggestion. Organize however makes sense — but it should b
 
 Answer these questions. Be honest and concise.
 
-1. **What database did you use and why?** What trade-offs did you consider?
+1. **What database did you use and why?**
 
-2. **How did you implement the status machine?** Describe your approach. Why this way vs. other options?
+2. **How did you implement the status machine?** Describe your approach briefly.
 
-3. **How does the alert system work?** Does it compute alerts on every request? Cache them? Something else? Why?
+3. **How does the alert system work?** Explain the logic.
 
-4. **What was the hardest bug you encountered?** Describe the bug, how you found it, how you fixed it.
+4. **What was the hardest part?** How did you solve it?
 
-5. **How did you handle filter persistence** on the shipments list page? What approach did you use and why?
-
-6. **What would break first if this had 10,000 shipments instead of 100?** How would you fix it?
-
-7. **What are you most proud of? What would you improve with 2 more days?**
+5. **What are you most proud of? What would you improve with more time?**
 
 ---
 
@@ -341,11 +325,11 @@ Answer these questions. Be honest and concise.
 
 | Criteria | Weight | What We're Looking For |
 |----------|--------|----------------------|
-| **Does it work?** | 15% | Deployed URL loads. We can navigate all 4 pages. Creating a shipment works. Status changes work. |
-| **Backend quality** | 25% | State machine enforced. Alerts are correct. Filters work. Proper validation and error messages. Tests pass. |
-| **Frontend quality** | 30% | Dashboard is informative. Shipment list filters work. Detail page is complete and useful. Create form validates and auto-calculates. Loading/error/empty states handled. Looks professional. |
-| **Data model & seed data** | 10% | Schema makes sense. Seed data is realistic. The problems planted are visible on the dashboard. |
-| **Design Decisions doc** | 20% | Shows real understanding. Honest about challenges. Can explain why, not just what. |
+| **Does it work?** | 20% | Deployed URL loads. We can navigate all 4 pages. Creating a shipment works. Status changes work. |
+| **Backend quality** | 25% | State machine enforced. Alerts are correct. Basic filters work. Proper validation. |
+| **Frontend quality** | 25% | Dashboard shows key info. Shipment list works. Detail page is complete. Create form works. Loading/error states handled. |
+| **Data model & seed data** | 10% | Schema makes sense. Seed data is realistic. Problems are visible on dashboard. |
+| **Design Decisions doc** | 20% | Shows understanding. Honest about challenges. Can explain your choices. |
 
 ---
 

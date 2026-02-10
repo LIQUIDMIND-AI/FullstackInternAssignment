@@ -1,6 +1,6 @@
 Criteria,Weight,What We're Looking For
-Does it work?,15%,"Deployed URL loads. We can navigate all 4 pages. Creating a shipment works. Status changes work."
-Backend quality,25%,"State machine enforced. Alerts are correct. Filters work. Proper validation and error messages. Tests pass."
-Frontend quality,30%,"Dashboard is informative. Shipment list filters work. Detail page is complete and useful. Create form validates and auto-calculates. Loading/error/empty states handled. Looks professional."
-Data model & seed data,10%,"Schema makes sense. Seed data is realistic. The problems planted are visible on the dashboard."
-Design Decisions doc,20%,"Shows real understanding. Honest about challenges. Can explain why, not just what."
+Does it work?,20%,"Deployed URL loads. We can navigate all 4 pages. Creating a shipment works. Status changes work."
+Backend quality,25%,"State machine enforced. Alerts are correct. Basic filters work. Proper validation."
+Frontend quality,25%,"Dashboard shows key info. Shipment list works. Detail page is complete. Create form works. Loading/error states handled."
+Data model & seed data,10%,"Schema makes sense. Seed data is realistic. Problems are visible on dashboard."
+Design Decisions doc,20%,"Shows understanding. Honest about challenges. Can explain your choices."
